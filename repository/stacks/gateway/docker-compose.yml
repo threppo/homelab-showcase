@@ -1,0 +1,22 @@
+name: gateway
+services:
+  tunnel:
+    command: tunnel run
+    container_name: cloudflared-tunnel
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    image: cloudflare/cloudflared:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+networks:
+  book-network:
+    external: true
+    name: example-shared-network

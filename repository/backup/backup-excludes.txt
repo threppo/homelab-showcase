@@ -1,0 +1,19 @@
+/srv/example-library/audiobooks
+/srv/example-library/downloads
+/opt/example-stacks/bookorbit/data/postgres
+/srv/example-app-data/aiometadata/data/poster-cache
+# Live PostersPlus state is captured under current/applications + sqlite first.
+# Deploy this only with the capture hook; never exclude authored state by itself.
+/srv/example-app-data/postersplus/cache
+/opt/example-stacks/jikan/data
+/srv/example-app-data/lumiere-db
+/opt/example-stacks/stirling-pdf/stirling-data/logs
+/opt/example-stacks/stirling-pdf/stirling-data/tessdata
+/opt/example-stacks/syncthing/config/index-v2
+/srv/example-photos/immich/library/thumbs
+/srv/example-photos/immich/library/encoded-video
+/srv/example-photos/immich/library/backups
+/opt/example-stacks/monitoring/data/uptime-kuma/kuma.db*
+/srv/example-app-data/aiometadata/data/db.sqlite*
+/var/lib/docker/volumes/example_grafana_data/_data/grafana.db*
+/opt/example-stacks/streaming/data/aiostreams/db.sqlite*

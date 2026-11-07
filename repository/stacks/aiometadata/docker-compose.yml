@@ -1,0 +1,113 @@
+services:
+  aiometadata:
+    image: ghcr.io/cedya77/aiometadata:latest
+    container_name: aiometadata
+    restart: unless-stopped
+
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+      - LUMIERE_API_BASE=${LUMIERE_API_BASE:-http://lumiere-db:8000}
+
+      # Built-in image cache
+      - ENABLE_BUILTIN_POSTER_CACHE=true
+      - POSTER_CACHE_MAX_SIZE=30g
+      - POSTER_CACHE_MEMORY_SIZE=128m
+
+      # Start conservatively: posters and processed images only
+      - POSTER_CACHE_BACKGROUNDS=false
+      - POSTER_CACHE_LANDSCAPE_POSTERS=false
+      - POSTER_CACHE_LOGOS=false
+      - POSTER_CACHE_THUMBNAILS=false
+      - POSTER_CACHE_PROCESSED_IMAGES=true
+
+      # Do not allow signed URLs to access LAN/private addresses
+      - POSTER_PROXY_ALLOW_PRIVATE=false
+      - POSTER_CACHE_ALLOWED_HOSTS=${POSTER_CACHE_ALLOWED_HOSTS:-postersplus}
+      - IMAGE_WARM_CONCURRENCY_MIN=2
+      - IMAGE_WARM_CONCURRENCY_MAX=4
+
+      # Rating poster URLs can change without changing their URL
+      - 'POSTER_CACHE_PROVIDER_POLICIES=[{"domain":"extendedratings.com","policy":"custom","ttl":"30d"},{"domain":"postersplus","policy":"custom","ttl":"1h"}]'
+
+
+    dns:
+      - 192.0.2.18
+      - 192.0.2.19
+      - 192.0.2.20
+
+    ports:
+      - "3232:3232"
+
+    env_file:
+      - .env
+
+    volumes:
+      - ${DOCKER_DATA_DIR}/aiometadata/data:/app/addon/data
+
+    depends_on:
+      aiometadata_redis:
+        condition: service_healthy
+
+    tty: true
+
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --no-verbose
+        - --tries=1
+        - --spider
+        - http://localhost:3232/health
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    networks:
+      - main
+
+  lumiere-db:
+    image: ghcr.io/0xconstant1/lumiere-db:latest
+    container_name: lumiere-db
+    restart: unless-stopped
+    stop_grace_period: 75s
+    user: "${PUID:-1000}:${PGID:-1000}"
+
+    expose:
+      - "8000"
+
+    environment:
+      TZ: Europe/Warsaw
+
+    volumes:
+      - ${DOCKER_DATA_DIR}/lumiere-db:/data
+
+    networks:
+      - main
+
+  aiometadata_redis:
+    image: redis:latest
+    container_name: aiometadata_redis
+    restart: unless-stopped
+
+    volumes:
+      - ${DOCKER_DATA_DIR}/aiometadata/cache:/data
+
+    command: redis-server --appendonly yes --save 3600 1
+
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - main
+
+networks:
+  main:
+    external: true
+    name: example-shared-network

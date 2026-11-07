@@ -1,0 +1,33 @@
+name: streaming
+
+services:
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:nightly
+    container_name: aiostreams
+    dns:
+      - 192.0.2.18
+      - 192.0.2.20
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./data/aiostreams:/app/data
+
+    networks:
+      - book-network
+
+    security_opt:
+      - no-new-privileges:true
+
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: "10m"
+
+networks:
+  book-network:
+    external: true
+    name: example-shared-network

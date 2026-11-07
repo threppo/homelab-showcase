@@ -1,0 +1,58 @@
+name: Validate repository
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Repository validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Show tool versions
+        run: |
+          git --version
+          docker --version
+          docker compose version
+
+      - name: Validate repository
+        run: ./scripts/validate-repo.sh
+
+      - name: Test Homepage LoL schedule parsing
+        run: node scripts/homepage/test-lol-schedule.cjs
+
+      - name: Install local recovery test dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sqlite3 rsync python3-yaml
+
+      - name: Test Homepage configuration
+        run: python3 scripts/homepage/test-config.py
+
+      - name: Test recovery regressions without production access
+        run: |
+          python3 scripts/recovery/test-recovery.py
+          python3 scripts/recovery/test-immich-motion.py
+
+      - name: Test backup dumps and timeouts without production access
+        run: |
+          bash scripts/backup/test-bookorbit-dump.sh
+          python3 scripts/backup/test-dump-timeouts.py
+          python3 scripts/backup/test-postersplus-capture.py

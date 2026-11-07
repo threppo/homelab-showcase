@@ -1,0 +1,37 @@
+# ILLUSTRATIVE ONLY: adapted from the project's Compose relationships.
+# Generic example labels and image placeholders; not a deployable configuration.
+# No credentials, host paths, published ports, VPN settings or real images included.
+services:
+  application:
+    image: EXAMPLE_APPLICATION_IMAGE
+    networks: [application_data, integrations]
+    depends_on:
+      database:
+        condition: service_healthy
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+  database:
+    image: EXAMPLE_DATABASE_IMAGE
+    networks: [application_data]
+    # Healthcheck and persistent storage deliberately omitted from this sketch.
+  dashboard:
+    image: EXAMPLE_DASHBOARD_IMAGE
+    networks: [integrations]
+  tunnel:
+    image: EXAMPLE_TUNNEL_IMAGE
+    networks: [integrations]
+  routed_workload:
+    image: EXAMPLE_WORKLOAD_IMAGE
+    network_mode: service:vpn_gateway
+    depends_on:
+      vpn_gateway:
+        condition: service_healthy
+  vpn_gateway:
+    image: EXAMPLE_VPN_IMAGE
+    networks: [integrations]
+    cap_add: [NET_ADMIN]
+    # Real tunnel device, private configuration and healthcheck are omitted.
+networks:
+  application_data: {}
+  integrations: {}

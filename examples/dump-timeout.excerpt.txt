@@ -1,0 +1,14 @@
+# Excerpt from homelab-infrastructure: scripts/backup/homelab-restic-backup.sh
+# For inspection and stub tests only; do not invoke against real containers.
+run_database_dump() {
+    local container=$1 script=$2
+    # The inner timeout terminates the dump process group inside the container.
+    # The longer host limit also bounds a stalled Docker API/exec connection.
+    timeout --kill-after=30s 32m docker exec "$container" sh -c '
+        command -v timeout >/dev/null 2>&1 || {
+            echo "ERROR: timeout is required inside the database container" >&2
+            exit 127
+        }
+        exec timeout -k 30s 30m sh -lc "$1"
+    ' sh "$script"
+}

@@ -1,0 +1,13 @@
+services:
+  app:
+    volumes:
+      - /srv/example-library:/library-data
+      - /srv/example-library/audiobooks:/books/Audiobooks
+    networks:
+      - default
+      - book-network
+
+networks:
+  book-network:
+    external: true
+    name: example-shared-network

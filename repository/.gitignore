@@ -1,0 +1,70 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+
+# Credentials and tokens
+credentials*
+secrets*
+*token*
+*password*
+*webhook*
+
+# Backup data and databases
+*.sql
+*.sql.gz
+*.dump
+*.backup
+*.tar
+*.tar.gz
+*.zip
+restic-cache/
+backups/
+
+# Application data
+data/
+cache/
+logs/
+tmp/
+uploads/
+library/
+postgres/
+redis/
+thumbs/
+encoded-video/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.swp
+*.swo
+*~
+
+# Real environment files
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+
+# Real secret files
+**/secrets/*.txt
+!**/secrets/*.example
+
+# Application state and caches
+**/data/
+**/config/
+**/poster-cache/
+**/stirling-data/
+
+# Sanitized secret templates
+!**/secrets/
+!**/secrets/*.example

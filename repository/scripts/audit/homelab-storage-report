@@ -1,0 +1,40 @@
+#!/bin/sh
+set -eu
+
+[ "$#" -eq 0 ] || { echo 'This report accepts no arguments.' >&2; exit 2; }
+
+docker_read() {
+    /usr/bin/env -i PATH=/usr/bin:/bin \
+        /usr/bin/docker --config /etc/example-docker \
+        --host unix:///var/run/docker.sock "$@"
+}
+
+docker_read inspect --type container --format '
+Container: {{.Name}}
+Image: {{.Config.Image}}
+Compose service: {{index .Config.Labels "com.docker.compose.service"}}
+Mounts:
+{{range .Mounts}}  type={{.Type}} source={{.Source}} target={{.Destination}}
+{{end}}' bookorbit-app bookorbit-db postersplus
+
+printf '\nBookorbit PostgreSQL actual data directory:\n'
+docker_read exec bookorbit-db sh -lc '
+    set -eu
+    if [ -n "${POSTGRES_PASSWORD_FILE:-}" ]; then
+        PGPASSWORD=$(cat "$POSTGRES_PASSWORD_FILE")
+    else
+        PGPASSWORD=${POSTGRES_PASSWORD:-}
+    fi
+    export PGPASSWORD
+    psql --no-password --username="${POSTGRES_USER:-postgres}" \
+        --dbname=postgres --no-psqlrc --tuples-only --no-align \
+        --command="SHOW data_directory;"
+    pg_dumpall --version
+'
+
+printf '\nPostersPlus SQLite file (metadata only):\n'
+/usr/bin/stat --format='%F %s bytes %n' \
+    /srv/example-app-data/postersplus/cache/cache.db
+
+printf '\nPostersPlus state/cache directory size:\n'
+/usr/bin/du -sh /srv/example-app-data/postersplus

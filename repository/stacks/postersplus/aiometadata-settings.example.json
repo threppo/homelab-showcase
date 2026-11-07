@@ -1,0 +1,5 @@
+{
+  "posterRatingProvider": "custom",
+  "usePosterProxy": true,
+  "customPosterUrlPattern": "http://postersplus:8000/poster?tmdb_id={tmdb_id?}&imdb_id={imdb_id?}&stremio_id={id}&type={type}&shape={shape}&primary_client=stremio_tv_nuvio&top_gradient=low&bottom_gradient=low&hide_year=true&sash_mode=hidden&badge_pos=top_left&rating_display_mode=3&minimalist_append_mode=1&minimalist_mode_font_size_ratio=0.056&minimalist_center=true&minimalist_rating_separator=pip&rating_badges=letterboxd%3Am%2Cpopcorn%3Am%2Cimdb%3Amt%2Cpplus%3Amt%2Ctomatoes%3Amt%2Cmyanimelist%3Aa&rating_badge_max=3&rating_badge_scale=normalized&movie_weights=letterboxd%3A0.99%2Ctrakt%3A0.01&tv_weights=trakt%3A0.80%2Ctomatoes%3A0.20&use_original_art=true&hide_unreleased_rating=true&badge_display_mode=7&badge_group1=&access_key=CHANGE_ME_RENDER_SECRET"
+}

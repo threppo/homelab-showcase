@@ -1,0 +1,179 @@
+- Books:
+  - Bookorbit:
+      icon: mdi-book-open-page-variant
+      href: https://bookorbit.example.invalid
+      description: Biblioteka książek i audiobooków
+      ping: https://bookorbit.example.invalid
+      server: my-docker
+      container: bookorbit-app
+- Photos:
+  - Immich:
+      icon: immich.png
+      href: https://immich.example.invalid
+      description: Photo and video backup
+      server: my-docker
+      container: immich_server
+      showStats: true
+- Streaming:
+  - AIOStreams:
+      icon: mdi-play-network-outline
+      href: https://aiostreams.example.invalid
+      description: Stream aggregation for Nuvio / Stremio
+      ping: https://aiostreams.example.invalid
+      server: my-docker
+      container: aiostreams
+      showStats: true
+  - LoL Esports:
+      icon: mdi-sword-cross
+      href: https://lolesports.com/en-US/
+      description: Major leagues + international tournaments
+      widget:
+        type: customapi
+        url: https://lolesports.com/api/gql?operationName=homeEvents&variables=%7B%22hl%22%3A%22en-US%22%2C%22sport%22%3A%22lol%22%2C%22leagues%22%3A%5B%2298767991299243165%22%2C%2298767991332355509%22%2C%2298767991302996019%22%2C%2298767991310872058%22%2C%2298767991314006698%22%2C%22113476371197627891%22%2C%2298767975604431411%22%2C%2298767991325878492%22%2C%22113464388705111224%22%5D%2C%22eventState%22%3A%5B%22unstarted%22%2C%22inProgress%22%5D%2C%22eventType%22%3A%22match%22%2C%22pageSize%22%3A40%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22a4ca0434b4c3af4f3f95b4d7b03fe2a3fcdda0a36887d4f181da99cf3786f664%22%7D%7D
+        headers:
+          Content-Type: application/json
+          apollographql-client-name: Esports Web
+          apollographql-client-version: 46fabf6
+        refreshInterval: 300000
+        mappings:
+        - field: data.esports.events
+          label: Upcoming / live
+          format: size
+- AIOMetadata Stack:
+  - AIOMetadata:
+      icon: mdi-movie-open-play
+      href: https://aiometadata.example.invalid/configure
+      description: Metadata API / cache warming
+      ping: https://aiometadata.example.invalid
+      server: my-docker
+      container: aiometadata
+  - Redis Cache:
+      icon: mdi-database-outline
+      description: RAM cache layer
+      server: my-docker
+      container: aiometadata_redis
+  - Image Cache:
+      icon: mdi-image-multiple
+      href: https://aiometadata.example.invalid/configure
+      description: Built-in AIOMetadata image cache
+      server: my-docker
+      container: aiometadata
+      widget:
+        type: customapi
+        url: http://aiometadata:3232/api/dashboard/poster-cache/stats
+        refreshInterval: 60000
+        headers:
+          x-admin-key: '{{HOMEPAGE_VAR_AIOMETADATA_ADMIN_KEY}}'
+        mappings:
+        - field: cached_images
+          label: Images
+          format: number
+        - field: disk_usage_bytes
+          label: Disk
+          format: bytes
+        - field: max_size
+          label: Limit
+          format: text
+        - field: ttl
+          label: Default TTL
+          format: text
+  - LumiereDB:
+      icon: mdi-database-search-outline
+      description: IMDb search and discovery
+      server: my-docker
+      container: lumiere-db
+      widget:
+        type: customapi
+        url: http://lumiere-db:8000/readyz
+        refreshInterval: 60000
+        mappings:
+        - field: status
+          label: Index
+          format: text
+  - PostersPlus:
+      icon: mdi-image-multiple-outline
+      href: https://posters.example.invalid/
+      description: Poster styles and ratings
+      server: my-docker
+      container: postersplus
+      widget:
+        type: customapi
+        url: http://postersplus:8000/health
+        refreshInterval: 60000
+        mappings:
+        - field: status
+          label: Renderer
+          format: text
+- Anime Metadata:
+  - Jikan REST:
+      icon: docker.png
+      description: Self-hosted Jikan API for aiometadata
+      server: my-docker
+      container: jikan_rest
+      showStats: true
+  - Jikan Mongo:
+      icon: mongodb.png
+      description: Jikan database
+      server: my-docker
+      container: jikan_mongo
+      showStats: true
+  - Jikan Redis:
+      icon: redis.png
+      description: Jikan cache
+      server: my-docker
+      container: jikan_redis
+      showStats: true
+  - Jikan Typesense:
+      icon: typesense.png
+      description: Jikan search index
+      server: my-docker
+      container: jikan_typesense
+      showStats: true
+- Infrastructure:
+  - Grafana:
+      icon: grafana.png
+      href: https://grafana.example.invalid
+      description: Metrics / dashboards
+      ping: https://grafana.example.invalid
+      server: my-docker
+      container: grafana
+  - Uptime Kuma:
+      icon: uptime-kuma.png
+      href: https://status.example.invalid
+      description: Monitoring i uptime
+      ping: https://status.example.invalid
+      server: my-docker
+      container: uptime-kuma
+- Admin / Debug:
+  - Dozzle:
+      icon: dozzle.png
+      href: https://dozzle.example.invalid
+      description: Live container logs
+      server: my-docker
+      container: dozzle
+  - Arcane:
+      icon: mdi-cube-outline
+      href: http://192.0.2.17:3552
+      description: Docker stack and image manager
+      server: my-docker
+      container: arcane
+      showStats: true
+- Tools:
+  - Stirling PDF:
+      icon: stirling-pdf.png
+      href: https://pdf.example.invalid
+      description: PDF tools
+      server: my-docker
+      container: stirling-pdf
+      showStats: true
+  - Syncthing Server:
+      icon: syncthing.png
+      href: http://192.0.2.17:8384/
+      description: Syncthing on Debian server
+      server: my-docker
+      container: syncthing
+      showStats: true
+  - Syncthing PC:
+      icon: syncthing.png
+      href: http://127.0.0.1:8384
+      description: Syncthing on this PC

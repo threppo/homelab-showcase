@@ -1,0 +1,58 @@
+title: EXAMPLE_OWNER Server
+theme: dark
+color: slate
+language: pl
+target: _blank
+cardBlur: md
+headerStyle: clean
+iconStyle: theme
+background:
+  image: /images/background.jpeg
+  opacity: 50
+fullWidth: true
+maxGroupColumns: 5
+useEqualHeights: true
+showStats: false
+statusStyle: dot
+hideVersion: true
+hideErrors: false
+disableIndexing: true
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+  provider: google
+layout:
+  Books:
+    icon: mdi-bookshelf
+    style: row
+    columns: 4
+  Photos:
+    icon: mdi-image-multiple-outline
+    style: row
+    columns: 2
+  Streaming:
+    icon: mdi-play-network-outline
+    style: row
+    columns: 2
+  AIOMetadata Stack:
+    icon: mdi-movie-open-play
+    style: row
+    columns: 5
+  Anime Metadata:
+    icon: mdi-database-search-outline
+    style: row
+    columns: 4
+  Infrastructure:
+    icon: mdi-server-network
+    style: row
+    columns: 3
+  Admin / Debug:
+    icon: mdi-tools
+    style: row
+    columns: 3
+  Tools:
+    icon: mdi-application-brackets-outline
+    style: row
+    columns: 3

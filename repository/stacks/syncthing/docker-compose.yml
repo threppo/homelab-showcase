@@ -1,0 +1,23 @@
+services:
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    restart: unless-stopped
+    hostname: example-host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+    volumes:
+      - ./config:/config
+      - /srv/example-photos/immich/library:/immich-library
+      - /opt/example-stacks/immich:/immich-stack:ro
+      - type: bind
+        source: /srv/example-library/audiobooks
+        target: /audiobooks
+        read_only: true
+    ports:
+      - "8384:8384"
+      - "22000:22000/tcp"
+      - "22000:22000/udp"
+      - "21027:21027/udp"

@@ -1,0 +1,19 @@
+ARG BASE_IMAGE
+ARG TRUST_TOOLS_IMAGE=golang:1.27.3-alpine
+FROM ${TRUST_TOOLS_IMAGE} AS trust_builder
+WORKDIR /src
+COPY layer/filter-roots.go layer/filter-roots_test.go ./
+RUN gofmt -w filter-roots.go filter-roots_test.go \
+    && CGO_ENABLED=0 go test filter-roots.go filter-roots_test.go \
+    && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /filter-roots filter-roots.go
+FROM ${BASE_IMAGE}
+ARG ORIGINAL_USER=0
+USER 0
+COPY clean-ca/ /opt/homelab-ca/
+COPY layer/ /opt/homelab-security/
+ENV SSL_CERT_FILE=/opt/homelab-ca/ca-certificates.crt \
+    SSL_CERT_DIR=/opt/homelab-ca
+COPY --from=trust_builder /filter-roots /opt/homelab-security/filter-roots
+RUN ["/opt/homelab-security/filter-roots"]
+RUN /bin/sh /opt/homelab-security/apply.sh
+USER ${ORIGINAL_USER}

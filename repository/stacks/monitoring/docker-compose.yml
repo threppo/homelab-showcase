@@ -1,0 +1,149 @@
+name: monitoring
+services:
+  prometheus:
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=7d
+    container_name: prometheus
+    image: prom/prometheus:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - bind:
+          create_host_path: true
+        source: /opt/example-stacks/monitoring/config/prometheus/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        type: bind
+      - source: prometheus_data
+        target: /prometheus
+        type: volume
+        volume: {}
+  grafana:
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    image: grafana/grafana:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    ports:
+      - mode: ingress
+        protocol: tcp
+        published: '3000'
+        target: 3000
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - source: grafana_data
+        target: /var/lib/grafana
+        type: volume
+        volume: {}
+  node-exporter:
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+    container_name: node-exporter
+    image: prom/node-exporter:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    restart: unless-stopped
+    security_opt: []
+    volumes:
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /proc
+        target: /host/proc
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /sys
+        target: /host/sys
+        type: bind
+  cadvisor:
+    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    restart: unless-stopped
+    security_opt: []
+    volumes:
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /
+        target: /rootfs
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /var/run
+        target: /var/run
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /sys
+        target: /sys
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /var/lib/docker/
+        target: /var/lib/docker
+        type: bind
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - bind:
+          create_host_path: true
+        source: /opt/example-stacks/monitoring/data/uptime-kuma
+        target: /app/data
+        type: bind
+networks:
+  book-network:
+    external: true
+    name: example-shared-network
+volumes:
+  prometheus_data:
+    external: true
+    name: example_prometheus_data
+  grafana_data:
+    external: true
+    name: example_grafana_data

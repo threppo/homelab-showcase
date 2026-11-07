@@ -1,0 +1,63 @@
+name: postersplus
+
+services:
+  postersplus:
+    # Snapshot of upstream latest, verified on 2026-10-09. Review updates explicitly.
+    image: ${POSTERSPLUS_IMAGE:-ghcr.io/umbraprojects/postersplus:latest@sha256:6d4719fbe2dbf628dd4f597ee8932c7e3f5a5782d23c059d67c4f3999002f498}
+    container_name: postersplus
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+    env_file:
+      - .env
+
+    environment:
+      TMDB_API_KEY: ${TMDB_API_KEY:?Set the private TMDB key}
+      MDBLIST_API_KEY: ${MDBLIST_API_KEY:?Set the private MDBList key}
+      ACCESS_KEY: ${ACCESS_KEY:?Set a new rendering access key}
+      ADMIN_KEY: ${ADMIN_KEY:?Set a separate admin key of at least 12 characters}
+      TZ: Europe/Warsaw
+      WORKERS: "1"
+      POSTER_RENDER_CONCURRENCY: "2"
+      TEXTLESS_DETECTION_CONCURRENCY: "1"
+      MAX_POSTER_RESOLUTION: "500"
+      CACHE_WARM_ENABLED: "false"
+      CONFIGURATOR_EXTERNAL_AUTH: "false"
+      CDN_CACHE_TTL: "3600"
+      COMPOSITE_CACHE_TTL: "86400"
+      COMPOSITE_MAX_ENTRIES: "5000"
+
+    # UI through SSH or the gateway network; clients use AIOMetadata's image proxy.
+    ports:
+      - "127.0.0.1:${POSTERSPLUS_UI_PORT:-8001}:8000"
+
+    volumes:
+      - ${POSTERSPLUS_DATA_DIR:-/srv/example-app-data/postersplus}/cache:/app/cache
+
+    networks:
+      - book-network
+
+    mem_limit: 2g
+    cpus: 2.0
+
+    healthcheck:
+      test:
+        - CMD
+        - python3
+        - -c
+        - "import http.client; c = http.client.HTTPConnection('127.0.0.1', 8000, timeout=8); c.request('GET', '/health'); r = c.getresponse(); raise SystemExit(0 if r.status == 200 else 1)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  book-network:
+    external: true
+    name: example-shared-network

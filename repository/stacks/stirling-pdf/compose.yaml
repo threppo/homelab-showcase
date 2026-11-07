@@ -1,0 +1,21 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - "8095:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./stirling-data/configs:/configs
+      - ./stirling-data/logs:/logs
+      - ./stirling-data/pipeline:/pipeline
+      - ./stirling-data/tessdata:/usr/share/tessdata
+    networks:
+      - main
+
+networks:
+  main:
+    external: true
+    name: example-shared-network

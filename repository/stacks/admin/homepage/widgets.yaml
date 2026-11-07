@@ -1,0 +1,30 @@
+- resources:
+    label: Debian
+    expanded: true
+    cpu: true
+    memory: true
+    disk: false
+- search:
+    provider:
+    - brave
+    - google
+    - duckduckgo
+    focus: false
+    showSearchSuggestions: true
+    target: _blank
+- openmeteo:
+    label: Białystok
+    latitude: 53.1325
+    longitude: 23.1688
+    timezone: Europe/Warsaw
+    units: metric
+    cache: 10
+    format:
+      maximumFractionDigits: 1
+- datetime:
+    locale: pl-PL
+    text_size: md
+    format:
+      dateStyle: short
+      timeStyle: short
+      hourCycle: h23

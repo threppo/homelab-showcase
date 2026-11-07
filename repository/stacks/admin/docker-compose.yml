@@ -1,0 +1,74 @@
+name: admin
+services:
+  homepage:
+    container_name: homepage
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=homepage.example.invalid
+    env_file:
+      - .env
+    image: ghcr.io/gethomepage/homepage:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    ports:
+      - mode: ingress
+        protocol: tcp
+        published: '8082'
+        target: 3000
+    restart: unless-stopped
+    security_opt: []
+    volumes:
+      - bind:
+          create_host_path: true
+        source: /opt/example-stacks/admin/data/homepage
+        target: /app/config
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /opt/example-stacks/admin/data/homepage/images
+        target: /app/public/images
+        type: bind
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        type: bind
+
+  dozzle:
+    container_name: dozzle
+    environment:
+      - DOZZLE_LEVEL=info
+      - DOZZLE_TAIL=1000
+    image: amir20/dozzle:latest
+    logging:
+      driver: json-file
+      options:
+        max-file: '3'
+        max-size: 10m
+    networks:
+      book-network: null
+    ports:
+      - mode: ingress
+        protocol: tcp
+        published: '8084'
+        target: 8080
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - bind:
+          create_host_path: true
+        read_only: true
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        type: bind
+networks:
+  book-network:
+    external: true
+    name: example-shared-network

@@ -1,0 +1,363 @@
+{
+  "snapshot_date": "2026-10-29",
+  "source": "current working tree; no Git history",
+  "files": [
+    {
+      "file": ".github/workflows/validate.yml",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": ".gitignore",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/backup-excludes.txt",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/backup-sources.txt",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/backup.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/homelab-s3.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "backup/sqlite-databases.conf",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "docs/deploy-recovery-backup.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "docs/disaster-recovery-runbook.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "docs/postersplus-deployment.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/audit/export-compose-review.py",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/audit/homelab-storage-report",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/backup/capture-postersplus-state.sh",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/backup/homelab-restic-backup.sh",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/backup/install-backup-extension.sh",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/backup/test-bookorbit-dump.sh",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/backup/test-dump-timeouts.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/backup/test-postersplus-capture.py",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/backup/test-remote-restore.sh",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/homepage/test-config.py",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/homepage/test-lol-schedule.cjs",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/postersplus/smoke.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/recovery/prepare-image-pins.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/recovery/recovery-functions.sh",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/recovery/restore-immich-motion.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/recovery/test-immich-motion.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/recovery/test-recovery.py",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/security/jikan/Dockerfile",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/jikan/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/security/jikan/isolated-check.py",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/security/layer/Dockerfile.distroless",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/Dockerfile.node",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/Dockerfile.python",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/Dockerfile.trust",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "scripts/security/layer/apply.sh",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/filter-roots.go",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/filter-roots_test.go",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/layer/patch-certifi.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/rebuild-saved-images.py",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/security/runtime-trust-audit.sh",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "scripts/validate-repo.sh",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/admin/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/admin/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/admin/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/admin/homepage/bookmarks.yaml",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/admin/homepage/custom.css",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/admin/homepage/custom.js",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/admin/homepage/docker.yaml",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/admin/homepage/services.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/admin/homepage/settings.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/admin/homepage/widgets.yaml",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/aiometadata/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/aiometadata/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/aiometadata/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/arcane/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/arcane/compose.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/bookorbit/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/bookorbit/docker-compose.override.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/bookorbit/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/gateway/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/gateway/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/immich/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/immich/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/.env.compose.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/compose.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/mongo-init.js",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/jikan/secrets/db_admin_password.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/secrets/db_admin_username.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/secrets/db_password.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/secrets/db_username.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/secrets/redis_password.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/jikan/secrets/typesense_api_key.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/monitoring/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/monitoring/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/postersplus/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/postersplus/README.md",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/postersplus/compose.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/stirling-pdf/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/stirling-pdf/compose.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/streaming/.env.example",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/streaming/compose.yaml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "stacks/syncthing/docker-compose.yml",
+      "treatment": "sanitized"
+    },
+    {
+      "file": "systemd/homelab-restic-backup.service",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "systemd/homelab-restic-backup.timer",
+      "treatment": "copied verbatim"
+    },
+    {
+      "file": "stacks/postersplus/aiometadata-settings.example.json",
+      "treatment": "copied verbatim"
+    }
+  ],
+  "copied_source_files": 88,
+  "generated_snapshot_files": [
+    "docs/OMITTED.md"
+  ],
+  "later_removal": "2026-11-07: one stack and its dated notes were removed from this public copy; see docs/OMITTED.md"
+}

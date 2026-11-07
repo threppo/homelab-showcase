@@ -1,0 +1,13 @@
+/opt/example-stacks
+/srv/example-app-data/aiometadata/data
+/srv/example-photos/immich/library
+/var/lib/docker/volumes/example_grafana_data/_data
+/etc
+/usr/local/sbin
+/etc/example-homelab
+/etc/example-restic
+/home/EXAMPLE_OWNER/.ssh
+/home/EXAMPLE_OWNER/homelab-infrastructure
+/srv/example-library
+/srv/example-app-data/arcane
+/srv/example-app-data/postersplus
